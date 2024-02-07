@@ -2,9 +2,11 @@ package metroPackage;
 
  class Line {
     private String lineName;
+    private String number;
 
-    public Line(String lineName) {
+    public Line(String lineName, String number) {
         this.lineName = lineName;
+        this.number = number;
     }
     public Line(){
 
@@ -18,8 +20,16 @@ package metroPackage;
         this.lineName = lineName;
     }
 
-    @Override
+     public String getNumber() {
+         return number;
+     }
+
+     public void setNumber(String number) {
+         this.number = number;
+     }
+
+     @Override
     public String toString() {
-        return getLineName();
+        return getLineName() + " " + getNumber();
     }
 }

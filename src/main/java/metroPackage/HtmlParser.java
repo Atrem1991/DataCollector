@@ -6,14 +6,17 @@ import org.jsoup.select.Elements;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
- class HtmlParser {
+ public class HtmlParser {
     private static Document htmlDocument;
      private static List<String> lineNameList = new ArrayList<>();
-     private static List<String> stationsList = new ArrayList<>();
-    private static Elements stationsGroupsList;
+     public static List<String> stationsList = new ArrayList<>();
+    public static Elements stationsGroupsList;
     private static Elements addStationsGroupsList(){
         stationsGroupsList = htmlDocument.select("#metrodata > div > div > div");
         return stationsGroupsList;
@@ -27,7 +30,12 @@ import java.util.List;
     }
     private static void setLineList(){
         Elements lines = htmlDocument.select("#metrodata > div > div > span");
-        lineNameList = lines.eachText();
+        for(Element e : lines){
+            String lineNumber = e.attr("data-line");
+            String lineName = e.text();
+            lineNameList.add(lineName + "->" + lineNumber);
+
+        }
     }
     private static String getLineFromList(int index){
         return lineNameList.get(index).replaceAll("линия", "");
@@ -51,8 +59,11 @@ import java.util.List;
     }
     private static   Document getHTML(){
         try {
-            File htmlFile = new File("HTML\\MoscowMetro.html");
-            htmlDocument = Jsoup.parse(htmlFile);
+//            File htmlFile = new File("HTML\\MoscowMetro.html");
+            String url = "https://skillbox-java.github.io/";
+//            htmlDocument = Jsoup.parse(htmlFile);
+            htmlDocument = Jsoup.connect(url).get();
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

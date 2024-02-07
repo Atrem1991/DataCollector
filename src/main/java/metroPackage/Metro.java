@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Metro {
-    public List<Station> stationsObjectsList = new ArrayList<>();
+    public final List<Station> stationsObjectsList = new ArrayList<>();
 
     public Metro(File pathToFiles) throws IOException {
         FileFinder.fileFinder(pathToFiles);
@@ -19,9 +19,10 @@ public class Metro {
         for(String stationInfo : stationsList){
             try {
                 String[] stationData = getSeparatedProperty(stationInfo);
+                String[] lineData = stationData[1].split("->");
 
                 String stationName = stationData[0].strip();
-                Line line = new Line(stationData[1]);
+                Line line = new Line(lineData[0],lineData[1]);
                 boolean isConnection = checkConnectionValue(stationData[2]);
                 float depth = JsonParser.getDepth(stationName.toLowerCase());
                 String date = CsvParser.getDate(stationName.toLowerCase());
@@ -49,6 +50,4 @@ public class Metro {
             System.out.println(st);
         }
     }
-
-
 }
