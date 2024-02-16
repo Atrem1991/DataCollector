@@ -59,10 +59,11 @@ import java.util.List;
     }
     private static   Document getHTML(){
         try {
-//            File htmlFile = new File("HTML\\MoscowMetro.html");
-            String url = "https://skillbox-java.github.io/";
-//            htmlDocument = Jsoup.parse(htmlFile);
-            htmlDocument = Jsoup.connect(url).get();
+            File htmlFile = new File("Data\\MoscowMetro.html");
+            htmlDocument = Jsoup.parse(htmlFile);
+
+//            String url = "https://skillbox-java.github.io/";
+//            htmlDocument = Jsoup.connect(url).get();
 
         } catch (IOException e) {
             throw new RuntimeException(e);

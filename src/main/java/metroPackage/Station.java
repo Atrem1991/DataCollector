@@ -1,25 +1,28 @@
 package metroPackage;
 
  public class Station {
-    private Line line;
+    private String line;
     private String name;
     private boolean hasConnection;
     private float depth;
     private String date;
 
-    public Station(String name, Line line,String date, float depth , boolean hasConnection) {
+    public Station(String name, String line,String date, float depth , boolean hasConnection) {
         this.line = line;
         this.name = name;
         this.hasConnection = hasConnection;
         this.depth = depth;
         this.date = date;
     }
+    public Station(){
 
-    public Line getLine() {
+    }
+
+    public String getLine() {
         return line;
     }
 
-    public void setLine(Line line) {
+    public void setLine(String line) {
         this.line = line;
     }
 
