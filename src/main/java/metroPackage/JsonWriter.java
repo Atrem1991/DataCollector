@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Map;
 
 public class JsonWriter {
     private ObjectMapper mapper;

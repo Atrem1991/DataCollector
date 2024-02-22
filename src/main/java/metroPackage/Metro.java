@@ -10,8 +10,8 @@ import java.util.*;
 
 public class Metro {
     private final List<Station> stations = new ArrayList<>();
-    private final Map<String, List<String>> stationsToLine = new HashMap<>();
-    private final Set<Line> lines = new HashSet<>();
+    private final Map<String, List<String>> stationsToLine = new LinkedHashMap<>();
+    private final Set<Line> lines = new TreeSet<>();
 
     public Metro(File pathToFiles) throws IOException {
         FileFinder.fileFinder(pathToFiles);
@@ -38,12 +38,12 @@ public class Metro {
                 );
                 setStationsToLine(lineNumber,stationName);
                 setLines(lineName, lineNumber);
-
             }
             catch (Exception e){
                 e.getStackTrace();
             }
         }
+        System.out.println();
     }
 
     private String[] getSeparatedProperty(String properties){
@@ -74,28 +74,78 @@ public class Metro {
     }
 
     public void writeStations(String outPath){
-        File outFile = new File(outPath);
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
-        try {
-            writer.writeValue(outFile, stations);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
+        StationsCollector stationsCollector = new StationsCollector(stations);
+        stationsCollector.toJson(new File(outPath));
     }
 
-    public void writeStationsToLine(String outPath){
+    public void writeLine(String outPath){
         File outFile = new File(outPath);
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
         try {
-            TreeMap<String, List<String>> tree = new TreeMap<>(stationsToLine);
-            tree.comparator();
-            writer.writeValue(outFile, tree);
+//            Map<String, Map<String, List<String>>> linesMap = new HashMap<>(); //Новый MAP для соблюдения формата
+//            // вывода информации
+//            linesMap.put("stations", stationsToLine);
+            LinesCollector linesCollector = new LinesCollector(stationsToLine,lines);
+            writer.writeValue(outFile, linesCollector);
+//            writer.writeValue(outFile, lines);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
 
+    static class LinesCollector{
+        Map<String, List<String>> stations = new LinkedHashMap<>();
+        Set<Line> lines = new TreeSet<>() ;
+
+        public LinesCollector(Map<String, List<String>> stationsToLine, Set<Line> lines){
+            stations = stationsToLine;
+            this.lines = lines;
+        }
+        public LinesCollector(){
+
+        }
+
+        public Map<String, List<String>> getStations() {
+            return stations;
+        }
+
+        public void setStations(Map<String, List<String>> stations) {
+            this.stations = stations;
+        }
+
+        public Set<Line> getLines() {
+            return lines;
+        }
+
+        public void setLines(Set<Line> lines) {
+            this.lines = lines;
+        }
+    }
+
+
+
+
+    static  class StationsCollector{
+        private Map<String, List<Station>> stationsMap;
+        public StationsCollector(List<Station> stationsList){
+            stationsMap = new HashMap<>();
+            stationsMap.put("stations", stationsList);
+        }
+        public Map<String, List<Station>> getStationsMap() {
+            return stationsMap;
+        }
+        public void setStationsMap(Map<String, List<Station>> stationsMap) {
+            this.stationsMap = stationsMap;
+        }
+        public void toJson(File outPath){
+            ObjectMapper mapper = new ObjectMapper();
+            ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
+            try {
+                writer.writeValue(outPath, stationsMap);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }
