@@ -3,10 +3,8 @@ package metroPackage;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +27,7 @@ public class JsonParser {
                 if(checkDepthFormat(depth)){
                     stationDepth = Float.parseFloat(depth);
                 } else {
-                    stationDepth = (float)-999;
+                    stationDepth = (float)-999;      //в JSON фалах есть некорректные данные по глубине.
                 }
                 stationMap.put(stationName,stationDepth);
             }
@@ -44,5 +42,4 @@ public class JsonParser {
         Matcher matcher = pattern.matcher(depth);
         return matcher.find();
     }
-
 }

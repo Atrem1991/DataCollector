@@ -4,7 +4,7 @@ import java.util.*;
 
 public class CsvParser {
     private static Map<String,String> stationDateInfo = new HashMap<>();
-   private static List<String> data = new ArrayList<>();
+    private static List<String> data = new ArrayList<>();
     private static void readCsvToList() throws IOException {
         List<File> csvFiles = FileFinder.getCsvList();
         for (File csvFile : csvFiles) {

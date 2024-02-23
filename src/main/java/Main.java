@@ -4,11 +4,8 @@ import java.io.IOException;
 
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        Metro metro = new Metro(new File("C:\\Users\\dell\\Desktop\\data"));
-//        metro.toShow();
-//        JsonWriter writer = new JsonWriter();
-//        writer.writeStations("OUT\\json.json", metro);
+    public static void main(String[] args){
+        Metro metro = new Metro(new File("C:\\Users\\Artem.Gusev\\Desktop\\stations-data (1)\\data"));
         metro.writeStations("OUT\\json.json");
         metro.writeLine("OUT\\json2.json");
     }

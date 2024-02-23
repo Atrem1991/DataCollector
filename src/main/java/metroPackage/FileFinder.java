@@ -8,8 +8,6 @@ public class FileFinder {
     private static List<File> jsonList = new ArrayList<>();
     private static List<File> csvList = new ArrayList<>();
 
-
-
     public static void fileFinder(File rootPath){
         if(rootPath.isDirectory()){
             File[] paths = rootPath.listFiles();
@@ -30,7 +28,6 @@ public class FileFinder {
             }
         }
     }
-
     public static List<File> getJsonList() {
         return jsonList;
     }
@@ -38,5 +35,4 @@ public class FileFinder {
     public static List<File> getCsvList() {
         return csvList;
     }
-
 }

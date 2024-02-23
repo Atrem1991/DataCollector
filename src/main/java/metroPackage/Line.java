@@ -9,7 +9,6 @@ package metroPackage;
         this.number = number;
     }
     public Line(){
-
     }
 
     public String getLineName() {

@@ -14,8 +14,8 @@ import java.util.List;
 
  public class HtmlParser {
     private static Document htmlDocument;
-     private static List<String> lineNameList = new ArrayList<>();
-     public static List<String> stationsList = new ArrayList<>();
+    private static List<String> lineNameList = new ArrayList<>();
+    public static List<String> stationsList = new ArrayList<>();
     public static Elements stationsGroupsList;
     private static Elements addStationsGroupsList(){
         stationsGroupsList = htmlDocument.select("#metrodata > div > div > div");
@@ -34,7 +34,6 @@ import java.util.List;
             String lineNumber = e.attr("data-line");
             String lineName = e.text();
             lineNameList.add(lineName + "->" + lineNumber);
-
         }
     }
     private static String getLineFromList(int index){
@@ -57,7 +56,7 @@ import java.util.List;
         }
         return stationsList;
     }
-    private static   Document getHTML(){
+    private static Document getHTML(){
         try {
             File htmlFile = new File("Data\\MoscowMetro.html");
             htmlDocument = Jsoup.parse(htmlFile);
