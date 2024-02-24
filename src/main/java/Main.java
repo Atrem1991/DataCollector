@@ -8,7 +8,7 @@ public class Main {
         Metro metro = new Metro(
                 new File("C:\\Users\\dell\\Desktop\\data") //адрес папки data
         );
-        metro.writeStations("OUT\\json.json");
+        metro.writeStations("OUT\\json1.json");
         metro.writeLine("OUT\\json2.json");
     }
 }
