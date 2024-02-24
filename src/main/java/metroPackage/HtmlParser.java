@@ -3,12 +3,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
-import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,12 +53,8 @@ import java.util.List;
     }
     private static Document getHTML(){
         try {
-//            File htmlFile = new File("Data\\MoscowMetro.html");
-//            htmlDocument = Jsoup.parse(htmlFile);
-
             String url = "https://skillbox-java.github.io/";
             htmlDocument = Jsoup.connect(url).get();
-
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
